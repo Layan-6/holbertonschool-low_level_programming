@@ -10,7 +10,7 @@
  */
 int _sqrt_helper(int n, int start, int end)
 {
-	int mid, square;
+	long mid, square;
 
 	if (start > end)
 		return (-1);
