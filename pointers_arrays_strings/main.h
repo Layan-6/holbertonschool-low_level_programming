@@ -1,6 +1,1 @@
-#ifndef MAIN_H
-#define MAIN_H
-
-char *leet(char *);
-
-#endif
+int _putchar(char c);
