@@ -18,4 +18,14 @@ void print_name(char *name, void (*f)(char *));
  */
 void array_iterator(int *array, size_t size, void (*action)(int));
 
+/**
+ * int_index - Searches for an integer in an array
+ * @array: The array to search through
+ * @size: The number of elements in the array
+ * @cmp: Pointer to the function used to compare values
+ *
+ * Return: Index of first matching element, or -1 if not found
+ */
+int int_index(int *array, int size, int (*cmp)(int));
+
 #endif /* FUNCTION_POINTERS_H */
