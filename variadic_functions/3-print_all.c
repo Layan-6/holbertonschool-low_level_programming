@@ -12,21 +12,22 @@
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	unsigned int i = 0, j = 0;
+	unsigned int i = 0;
 	char *str;
 	char current;
+	int separator = 0;
 
 	va_start(args, format);
 
 	while (format && format[i])
 	{
 		current = format[i];
-		j = 0;
 
 		if (current == 'c' || current == 'i' || current == 'f' || current == 's')
 		{
-			if (i > 0)
+			if (separator)
 				printf(", ");
+			separator = 1;
 
 			switch (current)
 			{
