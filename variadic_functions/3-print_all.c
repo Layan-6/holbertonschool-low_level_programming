@@ -19,7 +19,14 @@ void print_all(const char * const format, ...)
 
 	va_start(args, format);
 
-	while (format && format[i])
+	if (format == NULL)
+	{
+		printf("\n");
+		va_end(args);
+		return;
+	}
+
+	while (format[i])
 	{
 		current = format[i];
 
