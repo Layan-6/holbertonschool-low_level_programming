@@ -1,19 +1,24 @@
-# Singly Linked Lists
+#ifndef LISTS_H
+#define LISTS_H
 
-## Project Description
-This project implements a function to print all elements of a singly linked list in C.
+#include <stddef.h>
 
-## Data Structure
-```c
 /**
  * struct list_s - singly linked list
  * @str: string - (malloc'ed string)
  * @len: length of the string
  * @next: points to the next node
+ *
+ * Description: singly linked list node structure
  */
 typedef struct list_s
 {
     char *str;
     unsigned int len;
-    struct list_t *next;
+    struct list_s *next;
 } list_t;
+
+/* Function prototypes */
+size_t print_list(const list_t *h);
+
+#endif /* LISTS_H */
