@@ -15,14 +15,29 @@ list_t *add_node(list_t **head, const char *str)
 	char *str_dup;
 	unsigned int len = 0;
 
+	if (head == NULL)
+		return (NULL);
+
 	/* Calculate string length */
-	while (str && str[len])
-		len++;
+	if (str != NULL)
+	{
+		while (str[len])
+			len++;
+	}
 
 	/* Duplicate the string */
 	str_dup = strdup(str);
-	if (str_dup == NULL)
+	if (str == NULL)
+	{
+		str_dup = strdup("(nil)");
+		if (str_dup == NULL)
+			return (NULL);
+		len = 0;
+	}
+	else if (str_dup == NULL)
+	{
 		return (NULL);
+	}
 
 	/* Allocate memory for new node */
 	new_node = malloc(sizeof(list_t));
