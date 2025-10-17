@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
 	{
 		bytes_written = write(fd_to, buffer, bytes_read);
-		if (bytes_written == -1 || bytes_written != bytes_read)
+		if (bytes_written == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 			close(fd_from);
@@ -60,14 +60,14 @@ int main(int argc, char *argv[])
 	}
 
 	close_from = close(fd_from);
-	close_to = close(fd_to);
-
 	if (close_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		close(fd_to);
 		exit(100);
 	}
 
+	close_to = close(fd_to);
 	if (close_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
