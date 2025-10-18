@@ -155,6 +155,7 @@ void print_abi(unsigned char *e_ident)
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
 	printf("  Type:                              ");
+
 	if (e_ident[EI_DATA] == ELFDATA2MSB)
 		e_type >>= 8;
 
@@ -181,6 +182,28 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
+ * convert_endian - converts between big and little endian
+ * @value: value to convert
+ * @bytes: number of bytes (4 for 32-bit, 8 for 64-bit)
+ *
+ * Return: converted value
+ */
+unsigned long int convert_endian(unsigned long int value, int bytes)
+{
+	unsigned long int result = 0;
+	int i;
+
+	for (i = 0; i < bytes; i++)
+	{
+		result <<= 8;
+		result |= (value & 0xFF);
+		value >>= 8;
+	}
+
+	return (result);
+}
+
+/**
  * print_entry - prints entry point address
  * @e_entry: entry point address
  * @e_ident: ELF identification bytes
@@ -188,6 +211,14 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
 	printf("  Entry point address:               ");
+
+	if (e_ident[EI_DATA] == ELFDATA2MSB)
+	{
+		if (e_ident[EI_CLASS] == ELFCLASS32)
+			e_entry = convert_endian(e_entry, 4);
+		else
+			e_entry = convert_endian(e_entry, 8);
+	}
 
 	if (e_ident[EI_CLASS] == ELFCLASS32)
 		printf("%#x\n", (unsigned int)e_entry);
