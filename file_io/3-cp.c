@@ -1,12 +1,11 @@
 #include "main.h"
-#include <stdio.h>
 
-#define BUFFER_SIZE 1024
+#define BUF_SIZE 1024
 
 /**
  * main - copies the content of a file to another file
- * @argc: number of arguments
- * @argv: array of arguments
+ * @argc: argument count
+ * @argv: argument vector
  *
  * Return: 0 on success, or exit with error code
  */
@@ -14,7 +13,7 @@ int main(int argc, char *argv[])
 {
 	int fd_from, fd_to;
 	ssize_t bytes_read;
-	char buffer[BUFFER_SIZE];
+	char buffer[BUF_SIZE];
 	mode_t permissions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
 	if (argc != 3)
@@ -38,7 +37,7 @@ int main(int argc, char *argv[])
 		exit(99);
 	}
 
-	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
+	while ((bytes_read = read(fd_from, buffer, BUF_SIZE)) > 0)
 	{
 		if (write(fd_to, buffer, bytes_read) != bytes_read)
 		{
